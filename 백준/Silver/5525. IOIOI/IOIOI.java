@@ -15,22 +15,22 @@ public class Main {
         int M = Integer.parseInt(br.readLine());
         String s = br.readLine();
 
-        String ioi = "I";
-
-        for (int i = 0; i < N; i++) {
-            ioi += "OI";
-        }
-
-        int size = N * 2 + 1;
         int answer = 0;
+        int cnt = 0;
+        for (int i = 1; i < M - 1; i++) {
+            if (s.charAt(i - 1) == 'I' && s.charAt(i) == 'O' && s.charAt(i + 1) == 'I') {
+                cnt++;
 
-        for (int i = 0; i < s.length() - size + 1; i++) {
-            if (s.substring(i, i + size).equals(ioi)) {
-                answer++;
+                if (cnt == N) {
+                    cnt--;
+                    answer++;
+                }
+                i++;
+            } else {
+                cnt = 0;
             }
         }
+
         System.out.println(answer);
-
-
     }
 }
