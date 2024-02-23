@@ -27,26 +27,22 @@ public class Main {
                 if (idx < 0) idx = -(idx + 1);
 
                 if (idx == arr.length) idx--;
-                //System.out.println(arr[i] + " " + arr[j] + " " + arr[idx] + " " + i + " " + j + " " + idx);
                 long min = Math.abs(sum + arr[idx]);
-                //System.out.println(min);
+
                 if (idx != 0 && idx - 1 > j) {
                     if (Math.abs(min) > Math.abs(sum + arr[idx - 1])) {
                         idx--;
                     }
-                   // System.out.println(i + " " + j + " " + idx + " min : " + min  + " minval : " + minVal);
                     min = Math.min(Math.abs(min), Math.abs(sum + arr[idx]));
                 }
 
                 if (Math.abs(minVal) > Math.abs(min)) {
                     while (idx <= j) idx++;
-                    if(Math.abs(minVal) > Math.abs(sum + arr[idx])){
+                    if (Math.abs(minVal) > Math.abs(sum + arr[idx])) {
                         minVal = Math.abs(min);
                         answer[0] = arr[i];
                         answer[1] = arr[j];
                         answer[2] = arr[idx];
-                        //System.out.println(minVal);
-                        //System.out.println(answer[0] + " " + answer[1] + " " + answer[2]);
                     }
                 }
             }
@@ -56,6 +52,5 @@ public class Main {
         for (int i = 0; i < answer.length; i++) {
             System.out.print(answer[i] + " ");
         }
-
     }
 }
