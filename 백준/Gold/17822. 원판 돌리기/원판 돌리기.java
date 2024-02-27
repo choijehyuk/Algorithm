@@ -65,7 +65,7 @@ public class Main {
 
             for (int j = 0; j < N; j++) {
                 for (int l = 0; l < M; l++) {
-                    near(j, l);
+                    if (map[j][l] != 0) near(j, l);
                 }
             }
 
