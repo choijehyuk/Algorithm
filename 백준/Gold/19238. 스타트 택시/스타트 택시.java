@@ -78,16 +78,12 @@ public class Main {
             list.add(new Taxi(passengerR, passengerC, destinationR, destinationC));
         }
 
-        //print(map);
-
         int cnt = list.size();
 
-        while (cnt > 0) {
+        while (cnt-- > 0) {
             findPassenger(startX, startY);
-            cnt--;
             if (fuel < 0) break;
-
-            //System.out.println("afterFind" + fuel);
+            if(!flag) break;
         }
 
         if (!flag) {
@@ -98,9 +94,6 @@ public class Main {
         boolean isGo = true;
 
         for (int i = 0; i < destination.length - 2; i++) {
-//            System.out.println(passenger[i]);
-//            System.out.println(destination[i]);
-//            System.out.println();
             if (!passenger[i] || !destination[i]) {
                 isGo = false;
                 break;
@@ -114,15 +107,6 @@ public class Main {
 
         System.out.println(fuel);
 
-    }
-
-    private static void print(int[][] map) {
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.println();
-        }
     }
 
     private static void findPassenger(int r, int c) {
@@ -140,20 +124,12 @@ public class Main {
 
             fuel--;
             if (fuel < 0) return;
-            //System.out.println();
 
             for (int i = 0; i < size; i++) {
                 Node cur = q.poll();
 
-                //System.out.println(cur.r + " " + cur.c + " " + fuel);
-
-                // 승객 찾음
                 if (map[cur.r][cur.c] != 0 && map[cur.r][cur.c] != 1 && !passenger[map[cur.r][cur.c] - 2]) {
                     passengerList.add(new Node(cur.r, cur.c));
-                    //System.out.println("원래 들어가던거" + (map[cur.r][cur.c] - 2));
-                    //findDestination(cur.r, cur.c, map[cur.r][cur.c] - 2);
-                    //System.out.println("map" + (map[cur.r][cur.c] - 2));
-                    //passenger[map[cur.r][cur.c] - 2] = true;
                     continue;
                 }
 
@@ -182,23 +158,19 @@ public class Main {
 
         int minR = Integer.MAX_VALUE;
         int minC = Integer.MAX_VALUE;
-        int index = 0;
-        //System.out.println("패신저리스트 사이즈 " + passengerList.size());
+
         for (int i = 0; i < passengerList.size(); i++) {
             if (passengerList.get(i).r < minR) {
                 minR = passengerList.get(i).r;
                 minC = passengerList.get(i).c;
-                index = i;
             } else if (passengerList.get(i).r == minR) {
                 if (passengerList.get(i).c < minC) {
                     minR = passengerList.get(i).r;
                     minC = passengerList.get(i).c;
-                    index = i;
                 }
             }
         }
 
-        //System.out.println("index : " + (map[minR][minC] -2));
         passenger[map[minR][minC] - 2] = true;
         findDestination(minR, minC, map[minR][minC] - 2);
     }
@@ -207,11 +179,10 @@ public class Main {
         Queue<Node> q = new LinkedList<>();
         q.add(new Node(r, c));
         v = new boolean[N][N];
-        int beforeFuel = fuel;
 
+        int beforeFuel = fuel;
         fuel++;
 
-        //System.out.println(beforeFuel);
         while (!q.isEmpty()) {
 
             int size = q.size();
@@ -225,7 +196,6 @@ public class Main {
                 if (cur.r == list.get(idx).destinationR && cur.c == list.get(idx).destinationC) {
                     startX = cur.r;
                     startY = cur.c;
-                    //System.out.println(beforeFuel + " " + fuel + "idx: " + idx);
                     fuel += (beforeFuel - fuel) * 2;
                     destination[idx] = true;
                     return;
